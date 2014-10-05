@@ -1,0 +1,68 @@
+package com.epam.task.classloader;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Enumeration;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
+
+import org.apache.log4j.Logger;
+
+public class IncrementClassLoader extends ClassLoader {
+	static final Logger logger = Logger.getLogger(IncrementClassLoader.class);
+
+	private String path;
+
+	public IncrementClassLoader(String path, ClassLoader parent) {
+		super(parent);
+		this.path = path;
+	}
+
+	protected Class findClass(final String name) throws ClassNotFoundException {
+
+		try {
+			JarFile jarFile = new JarFile(path);
+			JarEntry jarEntry = jarFile.getJarEntry(name + ".class");
+			logger.info("% Class " + name + jarEntry == null ? "" : " found");
+			byte[] classBytes = loadClassData(jarFile, jarEntry);
+			return defineClass(name, classBytes, 0, classBytes.length);
+
+		} catch (IOException e) {
+			throw new ClassNotFoundException(
+					"Format of class file incorrect for class " + name + ": "
+							+ e);
+		} catch (ClassFormatError e) {
+			throw new ClassNotFoundException(
+					"Format of class file incorrect for class " + name + ": "
+							+ e);
+
+		}
+	}
+
+	private JarEntry findFile(JarFile jarFile, String name, String extension)
+			throws IOException {
+		JarEntry jarEntry1 = jarFile.getJarEntry(name + ".class");
+
+		return jarEntry1;
+	}
+
+	private byte[] loadClassData(JarFile jarFile, JarEntry jarEntry)
+			throws IOException {
+
+		long size = jarEntry.getSize();
+
+		if (size == -1 || size == 0)
+
+			return null;
+
+		byte[] data = new byte[(int) size];
+
+		InputStream in = jarFile.getInputStream(jarEntry);
+
+		in.read(data);
+
+		return data;
+
+	}
+}

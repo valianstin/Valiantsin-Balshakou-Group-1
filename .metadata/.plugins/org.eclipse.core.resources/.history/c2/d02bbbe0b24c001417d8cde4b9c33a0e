@@ -1,0 +1,66 @@
+package com.epam.task.classloader;
+
+import java.io.File;
+
+import org.apache.log4j.Logger;
+
+public class IncrementClassLoader extends ClassLoader {
+	static final Logger logger = Logger.getLogger(IncrementClassLoader.class);
+
+	  private String path;
+	  
+	  public IncrementClassLoader(String path, ClassLoader parent) {
+	    super(parent);    
+	    this.path = path;    
+	  }
+	
+	protected Class findClass(final String name) throws ClassNotFoundException {
+
+        final File f = findFile(name.replace('.', '/'), ".class");
+        logger.info("% Class " + name + f == null ? "" : " found in " + f);
+        if (f == null) {
+            return findSystemClass(name);
+        }
+        try {
+            return (Class)
+                    AccessController.doPrivileged(new PrivilegedExceptionAction() {
+
+                        @Override
+                        public Object run() throws Exception {
+                            byte[] classBytes = loadFileAsBytes(f);
+                            CodeSource cs = getCodeSource(f);
+                            return defineClass(name,
+                                    classBytes, 0, classBytes.length, cs);
+                        }
+                    });
+
+
+        } catch (ClassFormatError e) {
+            throw new ClassNotFoundException(
+                    "Format of class file incorrect for class "
+                            + name + ": " + e);
+        } catch (PrivilegedActionException e) {
+            throw new ClassNotFoundException(
+                    "Format of class file incorrect for class "
+                            + name + ": " + e);
+        }
+    }
+
+    protected CodeSource getCodeSource(File f) {
+        Certificate[] cert = null;
+        try {
+            return new CodeSource(f.toURL(), cert);
+        } catch (MalformedURLException mue) {
+            logger.error(mue.getMessage());
+            //mue.printStackTrace();
+        }
+        return null;
+    }
+    
+    private File findFile(String name, String extension) {
+        File f = new File((new File(path).getPath()
+                + File.separatorChar + name.replace('/', File.separatorChar) + extension));
+        if (f.exists()) return f;
+        return null;
+    }
+}

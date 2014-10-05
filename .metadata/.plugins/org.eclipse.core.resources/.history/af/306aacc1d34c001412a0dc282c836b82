@@ -1,0 +1,6 @@
+package com.epam.task.classloader;
+
+public interface Function {
+
+	int increment(int i);
+}

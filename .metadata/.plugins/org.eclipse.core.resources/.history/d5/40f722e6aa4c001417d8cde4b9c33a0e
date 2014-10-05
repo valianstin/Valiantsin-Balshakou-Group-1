@@ -1,0 +1,5 @@
+package com.epam.task.classloader.functionality;
+
+public interface Function {
+
+}
