@@ -1,9 +1,0 @@
-package com.epam.task.classloader;
-
-import java.security.SecureClassLoader;
-import java.util.logging.Logger;
-
-public class IncrementClassLoader extends SecureClassLoader {
-	 static final Logger logger = Logger.getLogger(IncrementClassLoader.class);
-	 
-}

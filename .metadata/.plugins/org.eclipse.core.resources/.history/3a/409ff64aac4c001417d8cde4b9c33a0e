@@ -1,5 +1,0 @@
-package com.epam.task.classloader;
-
-public class IncrementClassLoader extends SecureClassLoader {
-
-}
