@@ -1,0 +1,13 @@
+package com.epam.task.multithreading;
+
+import org.apache.log4j.Logger;
+
+public class ChronoThread implements Runnable {
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		Logger logger = Logger.getLogger(Runner.class);
+	}
+
+}

@@ -1,0 +1,23 @@
+//Ќапишите программу, котора€ каждую секунду отображает на экране данные о времени, прошедшем от начала сессии, 
+//а другой ее поток выводит сообщение каждые 5 секунд. ѕредусмотрите возможность ежесекундного оповещени€ потока, 
+//воспроизвод€щего сообщение, потоком, отсчитывающим врем€. Ќе внос€ изменений в код потока-"хронометра" , добавьте 
+//еще один поток, который выводит на экран другое сообщение каждые 7 секунд. 
+//ѕредполагаетс€ использование методов wait(), notifyAll().
+
+package com.epam.task.multithreading;
+
+import org.apache.log4j.Logger;
+
+
+public class Runner {
+	static final Logger logger = Logger.getLogger(Runner.class);
+
+	Object locker =new Object();
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Thread chronoThread= new Thread(new ChronoThread());
+		chronoThread.start();
+	}
+
+}

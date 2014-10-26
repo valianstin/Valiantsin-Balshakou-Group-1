@@ -3,4 +3,7 @@
 <fullyQualifiedTypeName name="com.epam.task.classloader.functionality.Function"/>
 <fullyQualifiedTypeName name="java.net.URL"/>
 <fullyQualifiedTypeName name="java.io.InputStream"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.lang.ClassLoader"/>
 </qualifiedTypeNameHistroy>
