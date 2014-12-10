@@ -1,0 +1,143 @@
+package com.epam.pmc.beans;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.epam.pmc.exception.DaoException;
+
+@Entity
+@Table(name = "Project")
+public class Project {
+
+	@Id
+	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+
+	@Column(name = "name")
+	private String name;
+
+	@Column(name = "description")
+	private String description;
+
+	@Column(name = "psd")
+	private String plannedStartDate;
+
+	@Column(name = "ped")
+	private String plannedEndDate;
+
+	@Column(name = "asd")
+	private String actualStartDate;
+
+	@Column(name = "aed")
+	private String actualEndDate;
+
+	@ManyToOne
+	@JoinColumn(name = "status_id")
+	private Status status;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) throws DaoException {
+		if ("".equals(name))
+			throw new DaoException("Field Name is empty");
+		if (name.length() > 50)
+			throw new DaoException("Field Name is too long");
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) throws DaoException {
+		if ("".equals(description))
+			throw new DaoException("Field Description is empty");
+		if (description.length() > 550)
+			throw new DaoException("Field Description is too long");
+		this.description = description;
+	}
+
+	public String getPlannedStartDate() {
+		return unConvertDate(plannedStartDate);
+	}
+
+	public void setPlannedStartDate(String plannedStartDate)
+			throws DaoException {
+		try {
+			this.plannedStartDate = convertDate(plannedStartDate);
+		} catch (ArrayIndexOutOfBoundsException e) {
+			throw new DaoException("Invalid planned start date field");
+		}
+	}
+
+	public String getPlannedEndDate() {
+		return unConvertDate(plannedEndDate);
+	}
+
+	public void setPlannedEndDate(String plannedEndDate) throws DaoException {
+		try {
+			this.plannedEndDate = convertDate(plannedEndDate);
+		} catch (ArrayIndexOutOfBoundsException e) {
+			throw new DaoException("Invalid planned end date field");
+		}
+	}
+
+	public String getActualStartDate() {
+		return unConvertDate(actualStartDate);
+	}
+
+	public void setActualStartDate(String actualStartDate) throws DaoException {
+		try {
+			this.actualStartDate = convertDate(actualStartDate);
+		} catch (ArrayIndexOutOfBoundsException e) {
+			throw new DaoException("Invalid actual start date field");
+		}
+	}
+
+	public String getActualEndDate() {
+		return unConvertDate(actualEndDate);
+	}
+
+	public void setActualEndDate(String actualEndDate) throws DaoException {
+		try {
+			this.actualEndDate = convertDate(actualEndDate);
+		} catch (ArrayIndexOutOfBoundsException e) {
+			throw new DaoException("Invalid actual end date field");
+		}
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	private String convertDate(String date) {
+		String[] dates = date.split("-");
+		return dates[2] + "-" + dates[1] + "-" + dates[0];
+	}
+
+	private String unConvertDate(String date) {
+		String[] dates = date.split("-");
+		return dates[2] + "-" + dates[1] + "-" + dates[0];
+	}
+}

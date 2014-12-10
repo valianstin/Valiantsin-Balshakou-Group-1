@@ -1,0 +1,54 @@
+package com.epam.jmp.hibernate.DAO;
+
+import java.util.List;
+
+import org.hibernate.SQLQuery;
+import org.hibernate.SessionFactory;
+
+import com.epam.jmp.hibernate.beans.Employee;
+import com.epam.jmp.hibernate.beans.Project;
+
+
+
+
+public class JavaDBImpl implements DAO {
+
+
+	private SessionFactory sessionFactory;
+
+	@Override
+	public Project getProject(int projectId) {
+		String getProjectRequest = "Select * from project,status where project.status_id=status.id and project.id="
+				+ projectId;
+		SQLQuery sqlquery = sessionFactory.getCurrentSession()
+				.createSQLQuery(getProjectRequest).addEntity(Project.class);
+		return (Project) sqlquery.uniqueResult();
+	}
+
+	@Override
+	public void addProject(Project project) {
+		sessionFactory.getCurrentSession().save(project);
+		}
+
+	@Override
+	public void updateProject(Project project) {
+		sessionFactory.getCurrentSession().update(project);
+	}
+
+	@Override
+	public Employee getEmployee(int employeeId) {
+		String sql = "select * from employee where id="+employeeId;
+
+		SQLQuery sqlquery = sessionFactory.getCurrentSession()
+				.createSQLQuery(sql).addEntity(Employee.class);
+		return (Employee) sqlquery.uniqueResult();
+	}
+
+	
+	@Override
+	public void addEmployee(Employee employee) {
+		sessionFactory.getCurrentSession().save(employee);
+	}
+
+	
+}

@@ -1,0 +1,11 @@
+package Factories;
+
+import com.epam.jmp.hibernate.DAO.DAO;
+
+
+public class DAOFactory {
+	public static DAO getClassFromFactory() {
+				return new MySQLDBPlaysImpl();
+		//return new HardcodedPlaysImpl();
+	}
+}

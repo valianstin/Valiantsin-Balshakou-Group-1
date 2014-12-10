@@ -1,0 +1,35 @@
+package com.epam.jmp.hibernate.DAO;
+
+import java.util.List;
+
+
+import com.epam.jmp.hibernate.beans.Project;
+import com.epam.jmp.hibernate.beans.Employee;
+import com.epam.jmp.hibernate.beans.Unit;
+
+public interface PMCDAO {
+	Employee getEmployee(String login, String password);
+
+	List<Project> getProjects(Employee user);
+
+	
+	List<Member> getProjectMembers(int projectId);
+
+	
+	Project getProject(int projectId);
+
+	void addProject(Project project);
+
+	
+	void updateProject(Project project);
+
+	
+	List<Employee> getEmployees(int projectId);
+
+	
+	Employee getEmployee(int employeeId);
+
+	
+	void addEmployee(Employee employee);
+
+	}

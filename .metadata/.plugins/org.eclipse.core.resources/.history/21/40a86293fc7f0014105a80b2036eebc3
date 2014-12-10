@@ -1,0 +1,25 @@
+package com.epam.jmp.hibernate;
+
+import com.epam.jmp.hibernate.DAO.DAO;
+import com.epam.jmp.hibernate.beans.Employee;
+import com.epam.jmp.hibernate.exceptions.DaoException;
+
+import Factories.DAOFactory;
+
+public class Runner {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		DAO dao= DAOFactory.getClassFromFactory();
+		Employee employee=new Employee();
+		try{
+		
+			employee.setFirstName("asdfasd");
+			employee.setId("asdfasd");
+		}catch(DaoException e){
+			System.out.println(e);
+		}
+		dao.addEmployee(employee);
+	}
+
+}

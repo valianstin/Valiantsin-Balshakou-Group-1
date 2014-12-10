@@ -1,0 +1,11 @@
+package Factories;
+
+import by.gsu.epamlab.ifaces.IPlayDAO;
+import by.gsu.epamlab.model.impl.MySQLDBPlaysImpl;
+
+public class PlayFactory {
+	public static IPlayDAO getClassFromFactory() {
+				return new MySQLDBPlaysImpl();
+		//return new HardcodedPlaysImpl();
+	}
+}

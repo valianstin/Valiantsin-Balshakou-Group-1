@@ -1,0 +1,197 @@
+package com.epam.jmp.hibernate.DAO;
+
+import org.atteo.moonshine.jta.Transactional;
+import org.hibernate.Hibernate;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.service.ServiceRegistryBuilder;
+
+import com.epam.jmp.hibernate.beans.Employee;
+import com.epam.jmp.hibernate.beans.Project;
+import com.epam.jmp.hibernate.beans.Unit;
+
+
+
+
+public class JavaDBImpl implements DAO {
+
+
+	public JavaDBImpl() {
+		super();
+		Configuration configuration = new Configuration();
+	    ServiceRegistry serviceRegistry; 
+		configuration.configure();
+        serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties())
+        . buildServiceRegistry();
+        sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+		
+	}
+
+	private SessionFactory sessionFactory;
+
+	@Override
+	public void addEmployee(Employee employee) {
+		Session session = sessionFactory.getCurrentSession();
+		Transaction trans = session.beginTransaction(); 
+		session.save(employee);
+		trans.commit(); 
+	}
+
+	@Override
+	public void addUnit(Unit unit) {
+		Session session = sessionFactory.getCurrentSession();
+		Transaction trans = session.beginTransaction(); 
+		session.save(unit);
+		trans.commit();
+	}
+	
+	@Override
+	public void addProject(Project project) {
+		Session session = sessionFactory.getCurrentSession();
+		Transaction trans = session.beginTransaction(); 
+		session.save(project);
+		trans.commit();
+	}
+
+	
+	@Override
+	public Employee getEmployee(int employeeId) {
+		Session session = sessionFactory.getCurrentSession();
+		Transaction trans = session.beginTransaction(); 
+		
+		String sql = "select * from employee where id="+employeeId;
+
+		SQLQuery sqlquery = sessionFactory.getCurrentSession()
+				.createSQLQuery(sql).addEntity(Employee.class);
+		
+		
+		Employee employee=(Employee) sqlquery.uniqueResult();
+		trans.commit();
+		return employee;
+	}	
+
+	@Override
+	public Unit getUnit(int unitId) {
+		Session session = sessionFactory.getCurrentSession();
+		Transaction trans = session.beginTransaction(); 
+		
+		String sql = "select * from unit where id="+unitId;
+
+		SQLQuery sqlquery = sessionFactory.getCurrentSession()
+				.createSQLQuery(sql).addEntity(Unit.class);
+		
+		
+		Unit unit=(Unit) sqlquery.uniqueResult();
+		trans.commit();
+		return unit;
+	}
+	
+	@Override
+	public Project getProject(int projectId) {
+		Session session = sessionFactory.getCurrentSession();
+		Transaction trans = session.beginTransaction(); 
+		
+		String sql = "select * from project where id="+projectId;
+
+		SQLQuery sqlquery = sessionFactory.getCurrentSession()
+				.createSQLQuery(sql).addEntity(Project.class);
+		
+		
+		Project project=(Project) sqlquery.uniqueResult();
+		trans.commit();
+		return project;
+	}
+
+	@Override
+	public void deleteEmployee(int employeeId) {
+		Employee e=getEmployee(employeeId);
+		
+		Session session = sessionFactory.getCurrentSession();
+		Transaction trans = session.beginTransaction(); 
+		sessionFactory.getCurrentSession().delete(e);
+		trans.commit();
+		return ;
+	}
+
+	@Override
+	public void deleteUnit(int unitId) {
+		Unit e=getUnit(unitId);
+		
+		Session session = sessionFactory.getCurrentSession();
+		Transaction trans = session.beginTransaction(); 
+		sessionFactory.getCurrentSession().delete(e);
+		trans.commit();
+		return ;
+		
+	}
+
+	@Override
+	public void deleteProject(int projectId) {
+		Project e=getProject(projectId);
+		
+		Session session = sessionFactory.getCurrentSession();
+		Transaction trans = session.beginTransaction(); 
+		sessionFactory.getCurrentSession().delete(e);
+		trans.commit();
+		return ;
+		
+	}
+
+	
+	@Override
+	public void updateProject(Project project) {
+		Session session = sessionFactory.getCurrentSession();
+		Transaction trans = session.beginTransaction(); 
+		sessionFactory.getCurrentSession().update(project);
+		trans.commit();
+	}
+
+
+
+	@Override
+	public void updateEmployee(Employee employee) {
+		Session session = sessionFactory.getCurrentSession();
+		Transaction trans = session.beginTransaction(); 
+		sessionFactory.getCurrentSession().update(employee);
+		trans.commit();
+	}
+
+	@Override
+	public void updateUnit(Unit unit) {
+		Session session = sessionFactory.getCurrentSession();
+		Transaction trans = session.beginTransaction(); 
+		sessionFactory.getCurrentSession().update(unit);
+		trans.commit();
+	}
+
+	@Override
+	public void updateEmployee(int employeeId,int unitId) {
+		Unit unit=getUnit(unitId);
+		Employee employee=getEmployee(employeeId);
+		employee.setUnit(unit);
+		updateEmployee(employee);
+	}
+
+	@Override
+	public void assignEmployee(int employeeId, int projectId) {
+		Project project=getProject(projectId);
+		Employee employee=getEmployee(employeeId);
+		
+		Session session = sessionFactory.getCurrentSession();
+		Transaction trans = session.getTransaction(); 
+		Hibernate.initialize(employee);
+		Hibernate.initialize(employee.getProjects());
+		trans.commit();
+		
+		updateEmployee(employee);
+	}
+
+	
+	
+	
+	
+}

@@ -1,0 +1,26 @@
+package com.epam.jmp.hibernate.DAO;
+
+
+import com.epam.jmp.hibernate.beans.Project;
+import com.epam.jmp.hibernate.beans.Employee;
+import com.epam.jmp.hibernate.beans.Unit;
+
+public interface DAO {
+	void addEmployee(Employee employee);
+	void addUnit(Unit unit);
+	void addProject(Project project);
+	
+	Employee getEmployee(int employeeId);
+	Employee getUnit(int unitId);
+	Project getProject(int projectId);
+	
+	void deleteEmployee(int employeeId);
+	void deleteUnit(int unitId);
+	void deleteProject(int projectId);
+	
+	void updateEmployee(Employee employee);
+	void updateUnit(Unit unit);
+	void updateProject(Project project);
+
+
+}

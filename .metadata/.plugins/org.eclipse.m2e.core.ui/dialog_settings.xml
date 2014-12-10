@@ -2,12 +2,10 @@
 <section name="Workbench">
 	<section name="MavenProjectWizardArtifactPage">
 		<list key="groupId">
-			<item value="org.apache.logging.log4j"/>
 		</list>
 		<list key="name">
 		</list>
 		<list key="artifactId">
-			<item value="log4j-core"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>
@@ -42,8 +40,15 @@
 			<item value="[groupId].[artifactId]-[version]"/>
 		</list>
 	</section>
+	<section name="org.eclipse.m2e.core.ui.internal.preferences.RemoteArchetypeCatalogDialog">
+		<list key="catalogUrl">
+			<item value="http://repo1.maven.org/maven2/archetype-catalog.xml"/>
+		</list>
+	</section>
 	<section name="MavenProjectWizardLocationPage">
 		<list key="location">
+			<item value="F:\Valiantsin-Balshakou-Group-1\Hibernate2"/>
+			<item value="F:\Valiantsin-Balshakou-Group-1\Hibernate"/>
 			<item value="F:\Valiantsin-Balshakou-Group-1\"/>
 		</list>
 		<list key="projectNameTemplate">
@@ -56,10 +61,16 @@
 	</section>
 	<section name="Maven2ProjectWizardArchifactPage">
 		<list key="package">
+			<item value="com.epam.jmp.hibernate"/>
+			<item value="com.epam.jmp.hibernate.archetypeId"/>
 		</list>
 		<list key="groupId">
+			<item value="com.epam.jmp"/>
+			<item value="com.epam.jmp.hibernate"/>
 		</list>
 		<list key="artifactId">
+			<item value="hibernate"/>
+			<item value="archetypeId"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>

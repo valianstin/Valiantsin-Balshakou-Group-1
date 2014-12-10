@@ -1,0 +1,63 @@
+package com.epam.jmp.hibernate;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.epam.jmp.hibernate.DAO.DAO;
+import com.epam.jmp.hibernate.beans.Address;
+import com.epam.jmp.hibernate.beans.Employee;
+import com.epam.jmp.hibernate.beans.EmployeeStatus;
+import com.epam.jmp.hibernate.beans.Project;
+import com.epam.jmp.hibernate.beans.Unit;
+import com.epam.jmp.hibernate.exceptions.DaoException;
+
+import Factories.DAOFactory;
+
+public class Runner {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		DAO dao= DAOFactory.getClassFromFactory();
+		Employee employee=new Employee();
+		Unit unit =new Unit();
+		Project project=new Project();
+		List<Project> projects=new ArrayList<Project>();
+		try{
+		
+			employee.setFirstName("asdfasd");
+			employee.setLastName("asdfasd2");
+			//employee.setId(15);
+			Address address=new Address();
+			address.setAddress("asdf");
+			address.setCity("adfgsd");
+			employee.setAddress(address);
+			employee.setStatus(EmployeeStatus.FULL_TIME_EMPLOYEE);
+			
+			unit.setUnitName("asdfasdfsadfas");
+			unit.setId(3);
+			employee.setUnit(unit);
+			
+			project.setDescription("asdg");
+			project.setName("dgdsfg");
+			project.setId(1);
+			projects.add(project);
+			employee.setProjects(projects);
+		}catch(DaoException e){
+			System.out.println(e);
+		}
+		//dao.addUnit(unit); //works
+		//dao.addEmployee(employee); //works
+		//dao.addProject(project); //works
+		
+		Employee employee1=dao.getEmployee(1);
+		System.out.println(employee1.getFirstName());
+		Unit unit1=dao.getUnit(1);
+		System.out.println(unit1.getUnitName());		
+		Project project1=dao.getProject(1);
+		System.out.println(project1.getName());
+		
+		
+		System.out.println("azaz");
+	}
+
+}

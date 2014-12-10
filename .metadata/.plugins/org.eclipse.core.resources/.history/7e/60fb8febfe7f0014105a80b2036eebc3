@@ -1,0 +1,129 @@
+package com.epam.jmp.hibernate.DAO;
+
+import org.atteo.moonshine.jta.Transactional;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.service.ServiceRegistryBuilder;
+
+import com.epam.jmp.hibernate.beans.Employee;
+import com.epam.jmp.hibernate.beans.Project;
+import com.epam.jmp.hibernate.beans.Unit;
+
+
+
+
+public class JavaDBImpl implements DAO {
+
+
+	public JavaDBImpl() {
+		super();
+		Configuration configuration = new Configuration();
+	    ServiceRegistry serviceRegistry; 
+		configuration.configure();
+        serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties())
+        . buildServiceRegistry();
+        sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+		
+	}
+
+	private SessionFactory sessionFactory;
+
+	@Override
+	public void addEmployee(Employee employee) {
+		Session session = sessionFactory.getCurrentSession();
+		Transaction trans = session.beginTransaction(); 
+		session.save(employee);
+		trans.commit(); 
+	}
+
+	@Override
+	public void addUnit(Unit unit) {
+		Session session = sessionFactory.getCurrentSession();
+		Transaction trans = session.beginTransaction(); 
+		session.save(unit);
+		trans.commit();
+	}
+	
+	@Override
+	public void addProject(Project project) {
+		Session session = sessionFactory.getCurrentSession();
+		Transaction trans = session.beginTransaction(); 
+		session.save(project);
+		trans.commit();
+	}
+	
+	@Override
+	public Project getProject(int projectId) {
+		String getProjectRequest = "Select * from project,status where project.status_id=status.id and project.id="
+				+ projectId;
+		SQLQuery sqlquery = sessionFactory.getCurrentSession()
+				.createSQLQuery(getProjectRequest).addEntity(Project.class);
+		return (Project) sqlquery.uniqueResult();
+	}
+
+	@Override
+	public void addProject(Project project) {
+		sessionFactory.getCurrentSession().save(project);
+	}
+
+	@Override
+	public void updateProject(Project project) {
+		sessionFactory.getCurrentSession().update(project);
+	}
+
+	@Override
+	public Employee getEmployee(int employeeId) {
+		String sql = "select * from employee where id="+employeeId;
+
+		SQLQuery sqlquery = sessionFactory.getCurrentSession()
+				.createSQLQuery(sql).addEntity(Employee.class);
+		return (Employee) sqlquery.uniqueResult();
+	}
+
+	
+
+
+
+
+	@Override
+	public Employee getUnit(int unitId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteEmployee(int employeeId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteUnit(int unitId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteProject(int projectId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateEmployee(Employee employee) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateUnit(Unit unit) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+}

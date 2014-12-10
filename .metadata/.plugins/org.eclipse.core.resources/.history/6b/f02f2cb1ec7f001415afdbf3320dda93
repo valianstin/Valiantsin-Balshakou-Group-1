@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration
+   PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+   "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+   <session-factory>
+   <property name="hibernate.dialect">org.hibernate.dialect.mySQLDialect</property>
+<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+<property name="hibernate.connection.url">http://localhost/Tools/phpMyAdmin/index.php?db=book_shop&token=fdf8bf8ee53bfa10becfc18cd2e743ed</property>
+<property name="hibernate.connection.username">root</property>
+<property name="hibernate.connection.password" />
+        <mapping class="com.epam.jmp.hibernate.beans.Address"/> 
+        <mapping class="com.epam.jmp.hibernate.beans.Employee"/> 
+        <mapping class="com.epam.jmp.hibernate.beans.EmployeePersonalInfo"/> 
+        <mapping class="com.epam.jmp.hibernate.beans.EmployeeStatus"/> 
+        <mapping class="com.epam.jmp.hibernate.beans.Project"/> 
+        <mapping class="com.epam.jmp.hibernate.beans.Unit"/> 
+   </session-factory>
+</hibernate-configuration>
+
+
+ 

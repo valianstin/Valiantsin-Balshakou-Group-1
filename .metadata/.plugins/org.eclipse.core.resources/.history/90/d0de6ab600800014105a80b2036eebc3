@@ -1,0 +1,119 @@
+package com.epam.jmp.hibernate.beans;
+
+import java.util.Collection;
+
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+
+
+
+
+
+import com.epam.jmp.hibernate.exceptions.DaoException;
+
+@Entity
+@Table(name = "Employee")
+public class Employee {
+	
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int id;
+    
+    @Column(name = "first_name")
+	private String firstName;
+    
+    @Column(name = "last_name")
+	private String lastName;
+    
+    @Enumerated(EnumType.STRING)
+    private EmployeeStatus status;
+    
+    @Embedded
+    private Address address;
+    
+    @ManyToOne
+    @JoinColumn(name="unit_id")
+    private Unit unit;
+  
+	@ManyToMany
+	@JoinTable(name = "employee_projects",
+	joinColumns=@JoinColumn(name="projectId"),
+	inverseJoinColumns=@JoinColumn(name="employeeId"))
+	private Collection<Project> projects;
+
+
+
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) throws DaoException{
+		if ("".equals(firstName))
+			throw new DaoException("Field First Name is empty");
+		if (firstName.length() > 20)
+			throw new DaoException("Field First Name is too long");
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) throws DaoException{
+		if ("".equals(lastName))
+			throw new DaoException("Field Last Name is empty");
+		if (lastName.length() > 20)
+			throw new DaoException("Field Last Name is too long");
+		this.lastName = lastName;
+	}
+
+	public EmployeeStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(EmployeeStatus status) {
+		this.status = status;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public Unit getUnit() {
+		return unit;
+	}
+
+	public void setUnit(Unit unit) {
+		this.unit = unit;
+	}
+
+
+
+	
+}

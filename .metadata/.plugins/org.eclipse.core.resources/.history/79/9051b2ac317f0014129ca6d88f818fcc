@@ -1,0 +1,5 @@
+package com.epam.jmp.hibernate.beans;
+
+public class EmployeePersonalInfo {
+
+}
