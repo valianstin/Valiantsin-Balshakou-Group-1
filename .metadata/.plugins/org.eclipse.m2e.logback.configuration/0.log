@@ -1914,3 +1914,7 @@
 2014-12-10 06:21:35,325 [Worker-14] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
 2014-12-10 06:21:35,325 [Worker-14] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1251 actually) to copy filtered resources, i.e. build is platform dependent!
 2014-12-10 06:21:35,325 [Worker-14] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory F:\Valiantsin-Balshakou-Group-1\hibernate\src\test\resources
+2014-12-10 06:22:00,141 [Worker-14] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1251 actually) to copy filtered resources, i.e. build is platform dependent!
+2014-12-10 06:22:00,141 [Worker-14] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2014-12-10 06:22:00,141 [Worker-14] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1251 actually) to copy filtered resources, i.e. build is platform dependent!
+2014-12-10 06:22:00,141 [Worker-14] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory F:\Valiantsin-Balshakou-Group-1\hibernate\src\test\resources
